@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig>
+  <Tracking>
+    <ImageTarget name="VeneraMarker" size="0.500000 0.500000" />
+    <ImageTarget name="MOSDCsZJ-uQ" size="5.000000 5.000000" />
+  </Tracking>
+</QCARConfig>

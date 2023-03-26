@@ -1,0 +1,108 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+def VUFORIA_ENGINE_PATH = '../../../..'
+
+// This file includes directives to enable the use of ARCore APIs in the App
+// These directives are not necessary to use Vuforia. They are only required if
+// the App will be using additional ARCore capabilities not exposed by Vuforia.
+
+// The path to extract the ARCore native libraries to
+// Part of enabling use of ARCore APIs in the App
+def ARCORE_LIBPATH = "${buildDir}/arcore-native"
+
+// Create a configuration to mark which aars to extract .so files from
+// Part of enabling use of ARCore APIs in the App
+configurations { natives }
+
+android {
+    compileSdkVersion 31
+    buildToolsVersion "30.0.3"
+    defaultConfig {
+        applicationId "com.vuforia.engine.native_sample"
+        minSdkVersion 26
+        targetSdkVersion 31
+        ndkVersion "21.4.7075529" // NDK r21e
+
+        versionCode 1
+        versionName '10.13.4'
+
+        ndk {
+            // Default ABI list for this app, can be over-ridden by providing an abiList property
+            // e.g. gradle -PabiList=x86 clean assembleDebug
+            abiFilters ((project.findProperty('abiList') ?: 'armeabi-v7a, arm64-v8a').split(/,\s*/))
+        }
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++17"
+
+                // Pass ARCore paths to cmake
+                // Part of enabling use of ARCore APIs in the App
+                arguments "-DARCORE_LIBPATH=${ARCORE_LIBPATH}/jni",
+                        "-DARCORE_INCLUDE=${project.rootDir}/arcore/include"
+            }
+        }
+    }
+    archivesBaseName = "vuforia-native-sample"
+    sourceSets {
+        main {
+            assets.srcDirs += ['../../Assets/ImageTargets','../../Assets/ModelTargets']
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.10.2"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.4'
+
+    implementation files("$VUFORIA_ENGINE_PATH/build/java/VuforiaEngine.jar")
+
+    implementation 'com.google.ar:core:1.31.0' // Add ARCore support
+    natives 'com.google.ar:core:1.31.0' // Enabling use of ARCore APIs in the App
+}
+
+// Extract the shared libraries from aars in the natives configuration.
+// This is done so that NDK builds can access these libraries.
+// Method added as part of enabling use of ARCore APIs in the App
+task extractNativeLibraries() {
+    // Always extract, this insures the native libs are updated if the version changes.
+    outputs.upToDateWhen { false }
+    doFirst {
+        configurations.natives.files.each { f ->
+            copy {
+                from zipTree(f)
+                into ARCORE_LIBPATH
+                include "jni/**/*"
+            }
+        }
+    }
+}
+
+// Method added as part of enabling use of ARCore APIs in the App
+tasks.whenTaskAdded {
+    task-> if (task.name.contains("external") && !task.name.contains("Clean")) {
+        task.dependsOn(extractNativeLibraries)
+    }
+}
+
+// Add a wrapper task so that this project can be imported into Android Studio
+task wrapper(type: Wrapper) {
+    gradleVersion = "6.7.1"
+}

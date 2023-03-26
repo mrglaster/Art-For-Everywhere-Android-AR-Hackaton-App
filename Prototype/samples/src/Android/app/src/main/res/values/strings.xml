@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Vuforia Native Sample</string>
+
+    <string name="splash_screen_description">Splash screen</string>
+    <string name="splash_screen_logo">Vuforia Logo</string>
+
+    <string name="main_image_target_label">Image Target</string>
+    <string name="main_model_target_label">Model Target</string>
+
+    <string name="title_activity_vuforia">Vuforia Augmented Reality</string>
+    <string name="ar_info_text">Vuforia Engine</string>
+
+    <string name="ok">OK</string>
+    <string name="error_dialog_title">Vuforia error</string>
+</resources>
