@@ -1,5 +1,5 @@
 ## Art For Everywhere: The Android AR Hackaton App
-Arts For Everywhere is an Android App for to view works of art: paintings, statues and the like. It is enough to point the smartphone camera at a special marker and this or that work of art will appear in its place.
+Arts For Everywhere is an Android App for to view works of art: paintings, statues and the like. It is enough to point the smartphone camera at a special marker and this or that work of art will appear in its place. At the moment, only the display of one single model for one marker is implemented, so you should not expect much.
 
 ## How was it planned
 
