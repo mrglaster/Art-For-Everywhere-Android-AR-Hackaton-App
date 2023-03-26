@@ -3,12 +3,12 @@ Arts For Everywhere is an Android App for to view works of art: paintings, statu
 
 ## How was it planned
 
-![alt text](https://github.com/mrglaster/Art-For-Everywhere-Android-AR-Hackaton-App/blob/main/readme_images/picture_demo.png)
-![alt text](https://github.com/mrglaster/Art-For-Everywhere-Android-AR-Hackaton-App/blob/main/readme_images/llusion_demo.jpg)
+![alt text](https://github.com/mrglaster/Art-For-Everywhere-Android-AR-Hackaton-App/blob/main/Readme_images/picture_demo.png)
+![alt text](https://github.com/mrglaster/Art-For-Everywhere-Android-AR-Hackaton-App/blob/main/Readme_images/llusion_demo.jpg)
 
 
 ## Reality
-![alt text](https://github.com/mrglaster/Art-For-Everywhere-Android-AR-Hackaton-App/blob/main/readme_images/reality.jpg)
+![alt text](https://github.com/mrglaster/Art-For-Everywhere-Android-AR-Hackaton-App/blob/main/Readme_images/reality.jpg)
 
 
 ## Links
